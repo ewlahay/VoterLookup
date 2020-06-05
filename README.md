@@ -1,5 +1,5 @@
 # VoterLookup
-Project to make NC Voter data more accessible via a GraphGL API
+Project to make NC Voter data more accessible via a GraphQL API
 
 ## Usage
 Either deploy using a WSGI server or run ```app.py```
