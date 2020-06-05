@@ -6,9 +6,10 @@ from sqlalchemy import Column, String, Integer, Boolean, CHAR
 
 class Voter(db.Model):
 	__tablename__ = "voters"
+	id = Column(Integer, primary_key=True, autoincrement=True)
 	county_id = Column(Integer)
 	county_desc = Column(String)
-	voter_reg_num = Column(Integer, primary_key=True)
+	voter_reg_num = Column(Integer) #, primary_key=True
 	status_cd = Column(CHAR(1))
 	voter_status_desc = Column(String)
 	reason_cd = Column(CHAR(2))
@@ -81,7 +82,10 @@ class Voter(db.Model):
 
 	def __init__(self, string:str):
 		values = string.split('"\t"')
-		self.county_id = int(values[0][1:])
+		try:
+			self.county_id = int(values[0][1:])
+		except ValueError:
+			self.county_id = None
 		self.county_desc = values[1]
 		self.voter_reg_num = int(values[2])
 		self.status_cd = values[3]
@@ -110,7 +114,10 @@ class Voter(db.Model):
 		self.ethnic_code = values[26]
 		self.party_cd = values[27]
 		self.gender_code = values[28]
-		self.birth_age = int(values[29])
+		try:
+			self.birth_age = int(values[29])
+		except ValueError:
+			self.birth_age = None
 		self.birth_state = values[30]
 		self.drivers_lic = values[31] == "Y"
 		self.registr_dt = values[32]
@@ -148,7 +155,10 @@ class Voter(db.Model):
 		self.dist_2_abbrv = values[64]
 		self.dist_2_desc = values[65]
 		self.confidential_ind = values[66] == "Y"
-		self.birth_year = int(values[67])
+		try:
+			self.birth_year = int(values[67])
+		except ValueError:
+			self.birth_year = None
 		self.ncid = values[68]
 		self.vtd_abbrv = values[69]
 		self.vtd_desc = values[70][:-1]
